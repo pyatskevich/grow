@@ -5,7 +5,7 @@ import { renderToString } from 'react-dom/server';
 import App from './App';
 
 require('babel-register')({
-  presets: ['env']
+  presets: ['env'],
 });
 
 const app = express();
@@ -33,5 +33,7 @@ app.get('/*', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.end(htmlTemplate(reactDom));
 });
-
-app.listen(2048);
+const PORT = process.env.PORT || 2048;
+app.listen(PORT, () => {
+  console.info(`Server listening on port ${PORT}`);
+});

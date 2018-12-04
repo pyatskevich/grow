@@ -4,42 +4,42 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 const plugins = [
-  new FriendlyErrorsWebpackPlugin()
+  new FriendlyErrorsWebpackPlugin(),
 ];
 
 if (!dev) {
   plugins.push(new BundleAnalyzerPlugin({
     analyzerMode: 'static',
     reportFilename: 'webpack-report.html',
-    openAnalyzer: false
+    openAnalyzer: false,
   }));
 }
-
+console.info('process.env.NODE_ENV', process.env.NODE_ENV);
 module.exports = {
-  mode: process.env.NODE_ENV,
+  mode: 'development',
   context: path.join(__dirname, 'src'),
   devtool: dev ? 'none' : 'source-map',
   entry: {
-    app: 'index.js'
+    app: 'index.js',
   },
   resolve: {
     modules: [
       path.resolve('./src'),
-      'node_modules'
-    ]
+      'node_modules',
+    ],
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader'
-      }
-    ]
+        loader: 'babel-loader',
+      },
+    ],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js'
+    filename: '[name].bundle.js',
   },
-  plugins
+    plugins
 };
