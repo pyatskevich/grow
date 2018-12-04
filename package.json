@@ -17,10 +17,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "node_modules/.bin/eslint -c .eslintrc.js .",
-    "pret": "prettier",
+    "lint": "node_modules/.bin/eslint --fix .eslintrc.js .",
+    "pret": "prettier --write index.js",
     "server": "node index.js",
     "build": "SET NODE_ENV=development && webpack --progress",
     "dev": "npm-run-all --parallel server"
@@ -56,16 +55,15 @@
     "webpack-cli": "^2.0.9",
     "webpack-dev-server": "^3.0.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
+  "pre-commit": [
+    "pret",
+    "lint"
+  ],
+
   "lint-staged": {
     "*.{js}": [
-      "prettier --write",
-      "eslint -c .eslintrc.js --fix",
-      "git add"
+
+      "eslint -c .eslintrc.js --fix"
     ]
   }
 }
